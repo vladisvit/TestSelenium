@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "TestSelenium": {
+      "commandName": "Project",
+      "commandLineArgs": "Romania English 29",
+      "remoteDebugEnabled": false
+    }
+  }
+}
