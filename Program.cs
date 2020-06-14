@@ -31,7 +31,7 @@ namespace TestSelenium
       var language = args[1];
 
       Console.WriteLine("Start the Chrome browser");
-      var directoryInfo =Directory.GetParent(Environment.CurrentDirectory);
+      var directoryInfo = Directory.GetParent(Environment.CurrentDirectory);
       var parent = directoryInfo.Parent.Parent.FullName;
       var pathToChromeDriver = Path.Combine(parent, "chrome");
       IWebDriver driver = new ChromeDriver(pathToChromeDriver);
@@ -40,7 +40,7 @@ namespace TestSelenium
       SetUpElement(driver, "#country-element", By.CssSelector($"span[data-value='{country}']"));
       SetUpElement(driver, "#language", By.XPath($"//label[text()[contains(.,'{language}')]]/span"));
 
-      driver.ExecuteJavaScript("window.scrollTo(0, document.body.scrollHeight-600)");
+      driver.ExecuteJavaScript("window.scrollTo(0, document.body.scrollHeight-100)");
       var buttonAllJob = driver.FindElement(By.XPath("//a[contains(@class, 'content-loader-button load-more-button')]"));
       if (buttonAllJob.Displayed)
       {
@@ -48,7 +48,7 @@ namespace TestSelenium
       }
 
       // this code does not work driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
-      Thread.Sleep(3000); // only way to wait loading all job elements
+      Thread.Sleep(5000); // only way to wait loading all job elements
 
       var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(1));
       var resultFindedJobs = wait.Until(e => e.FindElements(By.XPath("//div[@class='container']//div[contains(@class, 'vacancies-blocks-col')]")));
@@ -70,9 +70,9 @@ namespace TestSelenium
     {
       IWebElement webElement = driver.FindElement(By.CssSelector(elementId));
       driver.ExecuteJavaScript("arguments[0].scrollIntoView();", webElement);
-      webElement.Click();
       if (webElement.Displayed)
       {
+        webElement.Click();
         IWebElement element = driver.FindElement(by);
         driver.ExecuteJavaScript("arguments[0].scrollIntoView();", element);
         if (element.Displayed)
